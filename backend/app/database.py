@@ -1,8 +1,14 @@
 import os
-import certifi
 from pathlib import Path
 from dotenv import load_dotenv
 from pymongo import MongoClient
+
+# Safe import for certifi
+try:
+    import certifi
+    ca_file = certifi.where()
+except ImportError:
+    ca_file = None
 
 # Load environment variables
 backend_env_path = Path(__file__).resolve().parent.parent / ".env"
@@ -31,8 +37,8 @@ def get_client():
 
     try:
         kwargs = {"serverSelectionTimeoutMS": 3000}
-        if "mongodb+srv://" in MONGO_URI or "tls=true" in MONGO_URI.lower():
-            kwargs["tlsCAFile"] = certifi.where()
+        if ca_file and ("mongodb+srv://" in MONGO_URI or "tls=true" in MONGO_URI.lower()):
+            kwargs["tlsCAFile"] = ca_file
 
         candidate_client = MongoClient(MONGO_URI, **kwargs)
         # Verify connection
