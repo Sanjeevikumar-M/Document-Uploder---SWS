@@ -1,0 +1,197 @@
+# Documents Uploader
+
+Build a full-stack document management application with:
+
+* **Frontend:** React 18 + Vite
+* **Backend:** Python + FastAPI
+* **Database:** MongoDB + Mongoose
+* **File uploads:** Multer
+* **AI:** Any LLM/provider of your choice
+* **API Docs:** Swagger / OpenAPI
+* **Tests:** Python pytest + FastAPI TestClient
+
+The starter project already contains the database connection, document model, upload configuration, text extraction, sample data, Swagger setup, and React UI components.
+
+Your task is to complete the TODO items below and make the application fully functional.
+
+## Getting Started
+
+Install dependencies
+
+Start backend
+
+Backend:
+
+`http://localhost:4000`
+
+Start frontend
+
+`npm run dev -w frontend`
+
+## What You Need to Build
+
+| Area     | Task                      | Status     |
+| -------- | ------------------------- | ---------- |
+| Backend  | GET /api/documents        | ✅ Provided |
+| Backend  | POST /api/documents       | ⬜ TODO     |
+| Backend  | DELETE /api/documents/:id | ⬜ TODO     |
+| Backend  | POST /api/chat            | ⬜ TODO     |
+| Backend  | answerQuestion()          | ⬜ TODO     |
+| Frontend | API integration in api.js | ⬜ TODO     |
+
+## API Requirements
+
+### Upload
+
+**POST /api/documents**
+
+Upload a file using `multipart/form-data` with the field:
+
+`file`
+
+The endpoint should:
+
+* Store the file on disk.
+* Store its metadata in MongoDB.
+* Extract text for supported text files.
+* Return the created document.
+* Handle invalid uploads appropriately.
+
+Supported text formats currently include:
+
+`.txt`
+
+`.md`
+
+`.json`
+
+### List Documents
+
+**GET /api/documents**
+
+Already provided. Documents should be returned newest first.
+
+### Delete Document
+
+**DELETE /api/documents/:id**
+
+The endpoint should:
+
+* Delete the document from MongoDB.
+* Delete the corresponding file from disk.
+* Return appropriate errors for invalid or missing documents.
+
+### Chat
+
+**POST /api/chat**
+
+Example request:
+
+```json
+{
+  "question": "What does the document say about leave policy?"
+}
+```
+
+Example response:
+
+```json
+{
+  "answer": "...",
+  "sources": [
+    {
+      "_id": "...",
+      "originalName": "leave-policy.txt"
+    }
+  ]
+}
+```
+
+An empty question should return `400`.
+
+## AI / Document Retrieval
+
+Implement the chat service.
+
+The `answerQuestion(question)` function should:
+
+1. Find relevant stored documents.
+2. Rank documents using a simple approach such as keyword overlap.
+3. Build a context from the relevant documents.
+4. Send the question and context to an LLM.
+5. Return the generated answer and the documents used as sources.
+
+## LLM Choice
+
+You may use any LLM or AI provider you prefer, including:
+
+* OpenAI
+* Anthropic
+* Google Gemini
+* Ollama/local models
+* Any other compatible provider
+
+The provided LLM library can be used or replaced if needed.
+
+The application should ideally remain runnable without an API key by using a stub/mock response.
+
+## Frontend
+
+Implement:
+
+`frontend/src/api.js`
+
+Connect the existing React components to the backend so users can:
+
+* Upload documents
+* View documents
+* Download documents
+* Delete documents
+* Ask questions through the chatbot
+
+Use:
+
+`VITE_API_BASE`
+
+for the backend URL.
+
+Default:
+
+`http://localhost:4000`
+
+## Swagger
+
+Interactive API documentation:
+
+`http://localhost:4000/`
+
+or:
+
+`http://localhost:4000/api/docs`
+
+Raw OpenAPI specification:
+
+`http://localhost:4000/api/openapi.json`
+
+## Testing
+
+Run the Python test suite using:
+
+`pytest`
+
+The existing tests cover the document upload/list flow and should pass after your implementation.
+
+## Acceptance Criteria
+
+* Upload documents successfully.
+* Store files and metadata correctly.
+* List documents.
+* Delete documents and their files.
+* Handle invalid requests appropriately.
+* Chat retrieves relevant document content.
+* Chat returns an answer and sources.
+* Frontend is connected to the backend.
+* Existing tests pass.
+* Swagger documentation continues to work.
+
+Focus on clean, maintainable code and correct functionality. Avoid unnecessary complexity; a simple keyword-based retrieval approach is sufficient.

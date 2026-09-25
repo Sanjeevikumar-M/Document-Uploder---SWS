@@ -1,0 +1,20 @@
+PROJECT BRIEF – ORION ONBOARDING REVAMP
+
+Goal
+  Cut new-hire time-to-productivity from 4 weeks to 2 weeks.
+
+Scope
+  - Redesign the first-day checklist.
+  - Automate laptop provisioning and account creation.
+  - Build a self-serve knowledge base for the top 20 support questions.
+
+Timeline
+  Kickoff: March 3. Beta with one team: April 14. Company-wide: May 26.
+
+Owners
+  Product: Priya Raman. Engineering: Sam Okafor. People Ops: Lena Fischer.
+
+Success metrics
+  - Median time-to-first-commit under 5 business days.
+  - New-hire satisfaction score of 4.5/5 or higher.
+  - Fewer than 2 provisioning tickets per new hire.
